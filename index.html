@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pillow Notes</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+        <input placeholder="new doc name" />
+        <ul>
+            <li><a href="#">doc</a></li>
+            <li>doc2</li>
+        </ul>
+    </div>
+    <div id="editor">
+      <textarea v-model="input" debounce="300"></textarea>
+      <div v-html="input | marked"></div>
+    </div>
+
+    <script src="bundle.js"></script>
+  </body>
+</html>

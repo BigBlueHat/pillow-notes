@@ -1,0 +1,33 @@
+{
+  "name": "pillow-notes",
+  "version": "0.0.0",
+  "description": "Markdown-y soft note taking on CouchDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/BigBlueHat/pillow-notes"
+  },
+  "keywords": [
+    "markdown",
+    "couchdb",
+    "pouchdb",
+    "vue.js"
+  ],
+  "author": "BigBlueHat <byoung@bigbluehat.com>",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/BigBlueHat/pillow-notes/issues"
+  },
+  "homepage": "https://github.com/BigBlueHat/pillow-notes",
+  "dependencies": {
+    "marked": "^0.3.5",
+    "pouchdb": "^4.0.3",
+    "vue": "^0.12.15"
+  },
+  "devDependencies": {
+    "browserify": "^11.1.0"
+  }
+}

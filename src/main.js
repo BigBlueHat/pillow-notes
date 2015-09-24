@@ -80,6 +80,10 @@ new Vue({
         db.remove(this.doc);
         // TODO: handle errors
         this.confirmDelete = false;
+        this.doc = {
+          _id: '',
+          markdown: ''
+        };
         this.listDocs();
       } else {
         this.confirmDelete = true;

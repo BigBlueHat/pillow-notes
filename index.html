@@ -7,16 +7,23 @@
   <body>
     <div class="sidebar">
         <input placeholder="new doc name" />
-        <ul>
-            <li><a href="#">doc</a></li>
-            <li>doc2</li>
-        </ul>
+        <doc-list></doc-list>
     </div>
     <div id="editor">
       <textarea v-model="input" debounce="300"></textarea>
       <div v-html="input | marked"></div>
     </div>
 
+    <!-- templates -->
+    <script id="doc-list" type="text/vuejs+html">
+      <ul>
+        <li v-repeat="ids">
+          <a v-on="click: loadDoc($value)">{{$value}}</a>
+        </li>
+      </ul>
+    </script>
+
+    <!-- app -->
     <script src="bundle.js"></script>
   </body>
 </html>

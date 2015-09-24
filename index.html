@@ -6,35 +6,35 @@
     <link rel="stylesheet" href="semantic/dist/semantic.min.css" />
     <link rel="stylesheet" href="index.css" />
   </head>
-  <body>
-    <div id="app" class="ui internally celled grid">
-      <div class="stretched row">
-        <nav class="three wide column">
-          <div class="ui vertical fluid tabular menu">
-            <div class="item">
-              <div class="ui transparent icon input">
-                <input placeholder="new doc name" type="text"
-                  v-on="keyup: newDoc | key 'enter'" />
-                <i class="plus link icon" v-on="click: newDoc"></i>
-              </div>
-            </div>
-            <div class="item" v-repeat="ids" v-class="active: $value == doc._id"
-              v-on="click: loadDoc">
-              <a href="{{$value}}">{{$value}}</a>
-              <a class="ui basic red icon right floated mini button"
-                 href="{{$value}}" title="delete this note"
-                 v-if="$value == doc._id"
-                 v-on="click: deleteDoc, blur: confirmDelete = false">
-                <i class="ui trash icon"></i>
-                <span v-if="confirmDelete">are you sure?</span>
-              </a>
-            </div>
+  <body id="app" class="pushable">
+    <div class="ui left vertical menu visible sidebar">
+      <div class="item">
+        <div class="ui transparent icon input">
+          <input placeholder="new doc name" type="text"
+            v-on="keyup: newDoc | key 'enter'" />
+          <i class="plus link icon" v-on="click: newDoc"></i>
+        </div>
+      </div>
+      <div class="item" v-repeat="ids" v-class="active: $value == doc._id"
+        v-on="click: loadDoc">
+        <a href="{{$value}}">{{$value}}</a>
+        <a class="ui basic red icon right floated mini button"
+           href="{{$value}}" title="delete this note"
+           v-if="$value == doc._id"
+           v-on="click: deleteDoc, blur: confirmDelete = false">
+          <i class="ui trash icon"></i>
+          <span v-if="confirmDelete">are you sure?</span>
+        </a>
+      </div>
+    </div>
+    <div class="pusher">
+      <div class="ui internally celled grid">
+        <div class="stretched row">
+          <textarea class="eight wide column" style="background: #f6f6f6;border: none"
+            v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
+          <div class="eight wide column">
+            <div v-html="doc.markdown | marked"></div>
           </div>
-        </nav>
-        <textarea class="seven wide column" style="background: #f6f6f6;border: none"
-          v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
-        <div class="six wide column">
-          <div v-html="doc.markdown | marked"></div>
         </div>
       </div>
     </div>

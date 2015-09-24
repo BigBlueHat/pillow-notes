@@ -1,12 +1,14 @@
-#app {
+#app .sidebar {
+  width: 11em;
+}
+#app .pusher {
+  transform: translate3d(11em, 0, 0);
   height: 100%;
 }
-#app > .row {
-  padding-bottom: 0;
+#app .pusher > .grid {
+  height: 100%;
 }
-#app > .row > nav {
-  padding: 0 0 0 5px;
-}
-#app textarea {
-  color: #777;
+
+.menu .item {
+  cursor: pointer;
 }

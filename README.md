@@ -6,18 +6,25 @@ with friends.
 
 :sleeping:
 
+## In a hurry?
+
+The `build` folder should contain an up-to-date static copy of Pillow Notes
+(rashly assuming I remembered to publish the updates, etc...). Open the
+`build/index.html` file in a browser (or serve it with a Web server) and take notes.
+
 ## Usage
 
-```
+```bash
 $ npm install
+$ npm run styles # if this is your first time or you're updating Semantic-UI
 $ npm run build
 ```
 
-Open the `index.html` file in your browser either via `File | Open...` or
-by running a web server (i.e. `python -m SimpleHTTPServer`).
+Open the `build/index.html` file in your browser either via `File | Open...` or
+by running a web server (i.e. `cd build && python -m SimpleHTTPServer`).
 
 **Note:** PouchDB databases are unique to the URL you load it from, so if
-you start using this at `file:///.../index.html` and then open it at
+you start using this at `file:///.../build/index.html` and then open it at
 `http://localhost:8000/` you'll be using two *different* databases. That's
 where the sync bit comes in. :wink:
 

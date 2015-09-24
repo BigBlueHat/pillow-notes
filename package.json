@@ -2,10 +2,10 @@
   "name": "pillow-notes",
   "version": "0.0.0",
   "description": "Markdown-y soft note taking on CouchDB",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "styles": "cd semantic && gulp build && cd ..",
-    "build": "browserify -e src/main.js -o bundle.js",
+    "build": "browserify -e src/main.js -o build/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

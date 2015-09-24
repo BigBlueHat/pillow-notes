@@ -3,28 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <title>Pillow Notes</title>
+    <link rel="stylesheet" href="semantic/dist/semantic.min.css" />
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div class="sidebar">
-      <input placeholder="new doc name"
-        v-on="keyup: newDoc | key 'enter'" />
-      <ul>
-        <li v-repeat="ids" v-class="active: $value == doc._id">
-          <a class="doc-name" href="{{$value}}"
-             v-on="click: loadDoc">
-            {{$value}}</a>
-          <div v-if="$value == doc._id" style="text-align: right">
-            <small>
-              <a class="delete" href="{{$value}}" v-on="click: deleteDoc" title="delete this note">x</a>
-            </small>
+    <div id="app" class="ui internally celled grid">
+      <div class="stretched row">
+        <nav class="three wide column">
+          <div class="ui vertical fluid tabular menu">
+            <div class="item">
+              <div class="ui transparent icon input">
+                <input placeholder="new doc name" type="text"
+                  v-on="keyup: newDoc | key 'enter'" />
+                <i class="plus link icon" v-on="click: newDoc"></i>
+              </div>
+            </div>
+            <div class="item" v-repeat="ids" v-class="active: $value == doc._id"
+              v-on="click: loadDoc">
+              <a href="{{$value}}">{{$value}}</a>
+              <div v-if="$value == doc._id" style="text-align: right">
+                <small>
+                  <a class="delete" href="{{$value}}" v-on="click: deleteDoc" title="delete this note">x</a>
+                </small>
+              </div>
+            </div>
           </div>
-        </li>
-      </ul>
-    </div>
-    <div id="editor">
-      <textarea v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
-      <div v-html="doc.markdown | marked"></div>
+        </nav>
+        <textarea class="seven wide column" style="background: #f6f6f6;border: none"
+          v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
+        <div class="six wide column">
+          <div v-html="doc.markdown | marked"></div>
+        </div>
+      </div>
     </div>
 
     <!-- app -->

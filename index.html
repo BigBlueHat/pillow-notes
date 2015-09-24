@@ -21,11 +21,13 @@
             <div class="item" v-repeat="ids" v-class="active: $value == doc._id"
               v-on="click: loadDoc">
               <a href="{{$value}}">{{$value}}</a>
-              <div v-if="$value == doc._id" style="text-align: right">
-                <small>
-                  <a class="delete" href="{{$value}}" v-on="click: deleteDoc" title="delete this note">x</a>
-                </small>
-              </div>
+              <a class="ui basic red icon right floated mini button"
+                 href="{{$value}}" title="delete this note"
+                 v-if="$value == doc._id"
+                 v-on="click: deleteDoc, blur: confirmDelete = false">
+                <i class="ui trash icon"></i>
+                <span v-if="confirmDelete">are you sure?</span>
+              </a>
             </div>
           </div>
         </nav>

@@ -14,7 +14,8 @@ new Vue({
       _id: '',
       markdown: ''
     },
-    ids: []
+    ids: [],
+    confirmDelete: false
   },
   created: function() {
     var self = this;
@@ -61,9 +62,15 @@ new Vue({
     },
     deleteDoc: function(e) {
       e.preventDefault();
-      db.remove(this.doc);
-      // TODO: handle errors
-      this.listDocs();
+      if (this.confirmDelete) {
+        db.remove(this.doc);
+        // TODO: handle errors
+        this.confirmDelete = false;
+        this.listDocs();
+      } else {
+        this.confirmDelete = true;
+      }
+
     }
   },
   filters: {

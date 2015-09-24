@@ -15,7 +15,13 @@ new Vue({
       markdown: ''
     },
     ids: [],
-    confirmDelete: false
+    remote: {
+      url: '',
+      username: '',
+      password: ''
+    },
+    confirmDelete: false,
+    showSyncForm: false
   },
   created: function() {
     var self = this;
@@ -24,7 +30,8 @@ new Vue({
   methods: {
     listDocs: function() {
       var self = this;
-      db.allDocs()
+      // use `startkey` to avoid _design/docs (since we're syncing)
+      db.allDocs({startkey: "_e"})
         .then(function(resp) {
           self.ids = [];
           for (var i = 0; i < resp.rows.length; i++) {
@@ -70,7 +77,23 @@ new Vue({
       } else {
         this.confirmDelete = true;
       }
-
+    },
+    syncTo: function() {
+      var self = this;
+      // TODO: maybe do some validation or something
+      var remote = new PouchDB(self.remote.url, {
+        auth: {
+          user: self.remote.user,
+          password: self.remote.password
+        }
+      });
+      PouchDB.sync(db, remote)
+        .on('complete', function(info) {
+          console.log('sync info', info);
+          alert('woot!');
+          self.showSyncForm = false;
+          self.listDocs();
+        });
     }
   },
   filters: {

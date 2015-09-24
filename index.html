@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body id="app" class="pushable">
-    <div class="ui left vertical menu visible sidebar">
+    <!-- document navigation -->
+    <div class="ui left vertical visible thin sidebar menu">
       <div class="item">
         <div class="ui transparent icon input">
           <input placeholder="new doc name" type="text"
@@ -26,8 +27,44 @@
           <span v-if="confirmDelete">are you sure?</span>
         </a>
       </div>
+
+      <!-- sync form toggle button -->
+      <div class="ui green icon right attached fixed button" style="position: absolute;bottom:0;margin-bottom:1em"
+        v-on="click: showSyncForm = true">
+        <i class="exchange icon"></i>
+      </div>
     </div>
+
+    <!-- sync form -->
+    <div class="ui bottom sidebar segment" v-class="visible: showSyncForm">
+      <div class="ui top left corner mini label floated close icon button"
+        v-on="click: showSyncForm = false">
+        <i class="close icon"></i>
+      </div>
+      <div class="ui form">
+        <div class="inline fields">
+          <div class="three wide field">
+            <input type="text" placeholder="username"
+              v-model="remote.username" />
+          </div>
+          <div class="three wide field">
+            <input type="password" placeholder="password"
+              v-model="remote.password" />
+          </div>
+          <div class="ten wide field">
+            <div class="ui action input">
+              <input type="text"
+                placeholder="http://example.com/database"
+                v-model="remote.url" />
+              <button class="ui positive button" v-on="click: syncTo">Sync</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main app content -->
     <div class="pusher">
+
       <div class="ui internally celled grid">
         <div class="stretched row">
           <textarea class="eight wide column" style="background: #f6f6f6;border: none"

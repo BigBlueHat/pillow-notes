@@ -1,8 +1,4 @@
-#app .sidebar {
-  width: 11em;
-}
 #app .pusher {
-  transform: translate3d(11em, 0, 0);
   height: 100%;
 }
 #app .pusher > .grid {

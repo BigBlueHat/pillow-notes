@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>Pillow Notes</title>
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div class="sidebar">
-        <input placeholder="new doc name" />
-        <doc-list></doc-list>
-    </div>
-    <div id="editor">
-      <textarea v-model="input" debounce="300"></textarea>
-      <div v-html="input | marked"></div>
-    </div>
-
-    <!-- templates -->
-    <script id="doc-list" type="text/vuejs+html">
+      <input placeholder="new doc name"
+        v-on="keyup: newDoc | key 'enter'" />
       <ul>
-        <li v-repeat="ids">
-          <a v-on="click: loadDoc($value)">{{$value}}</a>
+        <li v-repeat="ids" v-class="active: $value == doc._id">
+          <a class="doc-name" href="{{$value}}"
+             v-on="click: loadDoc">
+            {{$value}}</a>
+          <div v-if="$value == doc._id" style="text-align: right">
+            <small>
+              <a class="delete" href="{{$value}}" v-on="click: deleteDoc" title="delete this note">x</a>
+            </small>
+          </div>
         </li>
       </ul>
-    </script>
+    </div>
+    <div id="editor">
+      <textarea v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
+      <div v-html="doc.markdown | marked"></div>
+    </div>
 
     <!-- app -->
     <script src="bundle.js"></script>

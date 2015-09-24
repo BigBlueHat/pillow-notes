@@ -34,12 +34,35 @@ code {
 .sidebar {
     float: left;
     width: 8em;
+    padding: 0;
     border-right: 1px solid #333;
-    padding: 5px;
 }
 .sidebar ul, .sidebar li {
     margin:0;padding:0;list-style:none;
 }
+.sidebar li {
+    padding: 5px;
+}
 .sidebar input {
     width: 95%;
+}
+
+.doc-name {
+  display: block;
+}
+.doc-name:hover {
+  background: #f3f3f3;
+}
+
+.active {
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  background: #f6f6f6;
+  font-weight: bold;
+}
+.save {
+  color: #090;
+}
+.delete {
+  color: #900;
 }

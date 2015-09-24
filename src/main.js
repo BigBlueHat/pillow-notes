@@ -47,10 +47,17 @@ new Vue({
         _id: _id,
         markdown: ''
       };
-      db.put(doc);
-      // TODO: handle stuff
+      // save the empty doc immediately
+      db.put(doc)
+        .then(function(resp) {
+          // store the rev, so we can PUT the update later
+          doc._rev = resp.rev;
+        }).catch(console.log.bind(console));
+      // make the new doc the current doc
       self.doc = doc;
+      // reset the new doc form for future use
       e.target.value = '';
+      // reload the list of docs
       self.listDocs();
     },
     loadDoc: function(e) {

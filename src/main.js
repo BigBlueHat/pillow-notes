@@ -19,7 +19,7 @@ window.app = new Vue({
   data: {
     new_doc_name: '',
     doc: default_doc,
-    ids: [],
+    ids: {},
     remote: {
       url: '',
       username: '',
@@ -38,13 +38,17 @@ window.app = new Vue({
       db.query(
         function(doc) {
           if (undefined !== doc.markdown) {
-            emit(doc._id);
+            // include conflicts info (if any)
+            emit(null, [doc._rev].concat(doc._conflicts));
           }
         })
         .then(function(resp) {
-          self.ids = [];
+          self.ids = {};
           for (var i = 0; i < resp.rows.length; i++) {
-            self.ids.push(resp.rows[i].id);
+            // value holds the array of revisions--if in conflict, there's more
+            // than one in the array--otherwise index 2+ are null, so filter
+            var revs = resp.rows[i].value.filter(function(el) { return el; });
+            self.ids[resp.rows[i].id] = {revs: revs};
           }
         }
       );
@@ -84,10 +88,10 @@ window.app = new Vue({
           self.listDocs();
         }).catch(console.log.bind(console));
     },
-    loadDoc: function(e) {
+    loadDoc: function(e, id) {
       e.preventDefault();
       var self = this;
-      db.get(e.targetVM.$value)
+      db.get(id)
         .then(function(doc) {
           self.doc = doc;
         }

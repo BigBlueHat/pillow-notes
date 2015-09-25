@@ -21,13 +21,16 @@
           <i class="plus link icon" v-on="click: newDoc"></i>
         </div>
       </div>
-      <div class="item" v-repeat="ids" v-class="active: $value == doc._id"
-        v-on="click: loadDoc">
-        <a href="{{$value}}">{{$value}}</a>
+      <div class="item" v-repeat="ids" v-class="active: $key == doc._id"
+        v-on="click: loadDoc($event, $key)">
+        <a href="{{$key}}">{{$key}}</a>
+        <div class="menu" v-if="$key == doc._id">
+          <a class="item" v-repeat="revs">{{$value}}</a>
+        </div>
         <div class="ui mini buttons segment"
-          v-if="$value == doc._id">
+          v-if="$key == doc._id">
           <a class="ui basic red icon button"
-             href="{{$value}}" title="delete this note"
+             href="{{$key}}" title="delete this note"
              v-on="click: deleteDoc, blur: confirmDelete = false">
             <i class="ui trash icon"></i>
             <span v-if="!confirmDelete">delete</span>

@@ -67,6 +67,9 @@ window.app = new Vue({
         doc.markdown = '';
       }
 
+      doc.created = (new Date).toISOString();
+      doc.updated = doc.created;
+
       // save the doc immediately
       db.put(doc)
         .then(function(resp) {
@@ -92,6 +95,7 @@ window.app = new Vue({
     },
     saveDoc: function(e) {
       e.preventDefault();
+      this.doc.updated = (new Date).toISOString();
       db.put(this.doc);
       // TODO: handle errors and stuff
     },

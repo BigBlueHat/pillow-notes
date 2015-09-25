@@ -8,3 +8,9 @@
 .menu .item {
   cursor: pointer;
 }
+
+#editor {
+  min-height: 50%;
+  background: #f6f6f6;
+  border: none;
+}

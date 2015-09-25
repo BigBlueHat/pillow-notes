@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Pillow Notes</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
     <link rel="stylesheet" href="semantic/semantic.min.css" />
     <link rel="stylesheet" href="app.css" />
   </head>
@@ -68,9 +72,9 @@
 
       <div class="ui internally celled grid">
         <div class="stretched row">
-          <textarea class="eight wide column" style="background: #f6f6f6;border: none"
+          <textarea id="editor" class="sixteen wide mobile eight wide computer column"
             v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
-          <div class="eight wide column">
+          <div class="eight wide tablet computer only column">
             <div v-html="doc.markdown | marked"></div>
           </div>
         </div>

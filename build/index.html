@@ -12,6 +12,7 @@
       <div class="item">
         <div class="ui transparent icon input">
           <input placeholder="new doc name" type="text"
+            v-model="new_doc_name"
             v-on="keyup: newDoc | key 'enter'" />
           <i class="plus link icon" v-on="click: newDoc"></i>
         </div>

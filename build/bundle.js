@@ -24714,9 +24714,10 @@ window.db = db;
 
 Vue.config.debug = true;
 
-new Vue({
+window.app = new Vue({
   el: document.body,
   data: {
+    new_doc_name: '',
     doc: {
       _id: '',
       markdown: ''
@@ -24737,8 +24738,12 @@ new Vue({
   methods: {
     listDocs: function() {
       var self = this;
-      // use `startkey` to avoid _design/docs (since we're syncing)
-      db.allDocs({startkey: "_e"})
+      db.query(
+        function(doc) {
+          if (undefined !== doc.markdown) {
+            emit(doc._id);
+          }
+        })
         .then(function(resp) {
           self.ids = [];
           for (var i = 0; i < resp.rows.length; i++) {
@@ -24749,23 +24754,42 @@ new Vue({
     },
     newDoc: function(e) {
       var self = this;
-      var _id = e.target.value;
-      var doc = {
-        _id: _id,
-        markdown: ''
-      };
+      var doc = {_id: '', markdown: ''};
+      if (self.new_doc_name != '' && self.doc._id == '') {
+        // we're making a new doc, but haven't loaded one
+        doc = {
+          _id: self.new_doc_name,
+          markdown: self.doc.markdown
+        };
+      } else if (self.new_doc_name == '' && self.doc._id == '') {
+        // we're making a new doc, but have only clicked the "+"
+        doc = {
+          _id: (new Date).toISOString(),
+          markdown: self.doc.markdown
+        };
+      } else if (self.doc._id !== '') {
+        // there's a previously loaded doc in the editor, so don't save the
+        // contents of the editor into the new doc
+        doc = {
+          _id: self.new_doc_name || (new Date).toISOString(),
+          markdown: ''
+        };
+      }
+      console.log('doc', doc);
+      console.log('$data', JSON.stringify(self.$data));
       // save the empty doc immediately
       db.put(doc)
         .then(function(resp) {
+          console.log('resp', resp);
           // store the rev, so we can PUT the update later
           doc._rev = resp.rev;
+          // make the new doc the current doc
+          self.doc = doc;
+          // reset the new doc value for future use
+          self.new_doc_name = '';
+          // reload the list of docs
+          self.listDocs();
         }).catch(console.log.bind(console));
-      // make the new doc the current doc
-      self.doc = doc;
-      // reset the new doc form for future use
-      e.target.value = '';
-      // reload the list of docs
-      self.listDocs();
     },
     loadDoc: function(e) {
       e.preventDefault();

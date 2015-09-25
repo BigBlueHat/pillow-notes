@@ -75,7 +75,7 @@
 
       <div class="ui internally celled grid">
         <div class="stretched row">
-          <textarea id="editor" class="sixteen wide mobile eight wide computer column"
+          <textarea id="editor" class="sixteen wide mobile six wide computer column"
             v-model="doc.markdown" debounce="300" v-on="change: saveDoc"></textarea>
           <div class="eight wide tablet computer only column">
             <div v-html="doc.markdown | marked"></div>

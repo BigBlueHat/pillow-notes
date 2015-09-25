@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.menu .item > a:first-child {
+  display: block;
+}
+
 #editor {
   min-height: 50%;
   background: #f6f6f6;

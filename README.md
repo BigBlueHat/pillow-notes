@@ -1,10 +1,15 @@
 # Pillow Notes
 
-The Markdown-y softness of lightweight note taking goodness on Apache CouchDB
-and PouchDB. Toss the pillows between your browser and the cloud. Share them
+The Markdown-y softness of lightweight note taking goodness on
+[Apache CouchDB](http://couchdb.apache.org/) and [PouchDB](http://pouchdb.com/).
+Toss the pillows between your browser and the cloud. Share them
 with friends.
 
 :sleeping:
+
+## Need something "full strength?" :coffee:
+Check out [StackEdit](http://github.com/benweet/stackedit) if you need a more intense wake-up for your note taking,
+writing, and collaborating. It also works with CouchDB!
 
 ## In a hurry?
 
